@@ -12,6 +12,21 @@
 
       .right-column ~ p { clear: both; }
       .right-column ~ ul { clear: both; }
+      div.my-footer {
+        border-top: 1px solid #ccc;
+        font-size: 10pt;
+        text-align: center;
+        position: fixed;
+        bottom: 0px;
+        left: 0px;
+        height: 30px;
+        width: 100%;
+      }
+      
+      div.my-footer p {
+        margin-top: 10px;
+        height: 30px;
+      }
 
       body { font-family: 'Droid Serif'; }
       h1, h2, h3 {
@@ -23,7 +38,8 @@
   </head>
   <body>
     <textarea id="source">
-
+<div class="my-footer"><p>IETF Hackathon - project name </p></div>
+---
 class: center, middle
 
 # IETF Hackathon
@@ -34,7 +50,6 @@ November 9-13, 2020
 
 Online
 
-.footnote[.red.bold[*] IETF Hackathon ]
 ---
 
 # Hackathon Plan
