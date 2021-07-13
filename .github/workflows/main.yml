@@ -22,14 +22,13 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     name: Generate PDF
     steps:
-
-        name: Create "/slides" directory
+      - name: Create "/slides" directory
         run: mkdir slides && sudo chmod 777 slides
 
-        name: Build PDF
+      - name: Build PDF
         run: docker run --rm -t -v `pwd`:/slides -v ~:/home/user astefanutti/decktape index.html slides/presentation.pdf
 
-        name: Deploy
+      - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
