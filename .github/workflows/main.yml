@@ -27,6 +27,9 @@ jobs:
     steps:
       - name: Create "/slides" directory
         run: mkdir slides && sudo chmod 777 slides
+        
+      - name: List files
+        run: ls
 
       - name: Build PDF
         run: for f in `ls *.html`; do in="https://bkmgit.github.io/tryremark/${f}"; out="slides/${f%html}.pdf"; docker run --rm -t -v `pwd`:/slides -v ~:/home/user astefanutti/decktape $in $out; done
