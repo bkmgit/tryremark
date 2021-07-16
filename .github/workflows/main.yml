@@ -28,14 +28,15 @@ jobs:
       - name: Create "/slides" directory
         run: mkdir slides && sudo chmod 777 slides
         
-      - name: Get List of files
-        run: curl https://api.github.com/repos/bkmgit/tryremark/contents | grep \"name\" | grep \"*.html\", | cut -d \" -f4 > pagefiles.txt
-
-      - name: Build PDF
-        run: for f in `cat pagefiles.txt`; do in="https://bkmgit.github.io/tryremark/${f}"; out="slides/${f%.html}.pdf"; docker run --rm -t -v `pwd`:/slides -v ~:/home/user astefanutti/decktape $in $out; done
-
-      - name: Remove list of files
-        run: rm pagefiles.txt
+      - name: Get List of files, build pdf, remove list of files
+        env:
+          REPO: ${{ github.repository }}
+          REPO_NAME: ${{ github.event.repository.name }}
+          REPO_OWNER: ${{ github.repository_owner }}
+        run: 
+          curl https://api.github.com/repos/${REPO}/contents | grep \"name\" | grep \"*.html\", | cut -d \" -f4 > pagefiles.txt
+          for f in `cat pagefiles.txt`; do in="https://${REPO_OWNER}.github.io/${REPO_NAME}/${f}"; out="slides/${f%.html}.pdf"; docker run --rm -t -v `pwd`:/slides -v ~:/home/user astefanutti/decktape $in $out; done
+          rm pagefiles.txt
       
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
