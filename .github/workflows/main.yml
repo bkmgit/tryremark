@@ -28,13 +28,9 @@ jobs:
       - name: Create "/slides" directory
         run: mkdir slides && sudo chmod 777 slides
         
-      - name: Get List of files, build pdf, remove list of files
+      - name: Get List of files
         run: 
           curl https://api.github.com/repos/${{ github.repository }}/contents | grep \"name\" | grep \"*.html\", | cut -d \" -f4 > pagefiles.txt
-      
-      - name: Check list of files
-        run:  
-          cat pagefiles.txt
           
       - name:  Build pdfs   
         run:  
